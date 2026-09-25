@@ -38,15 +38,34 @@
 
 \usepackage{titlesec}
 \titlespacing{\section}{0pt}{*4}{*1}
-\titlespacing{\subsection}{0pt}{*3}{*0}
-\titlespacing{\subsubsection}{0pt}{*0}{*0}
 \titleformat{\section}{\large\bfseries\uppercase}{}{}{\midrule}
-\titleformat*{\subsection}{\large\bfseries\scshape}
+
+\usepackage{tabularx}
 
 %====== CUSTOM COMMANDS ======
 \newcommand{\aux}[1]{
   $|$ \space {\normalfont\itshape #1}
 }
+
+{% raw %}
+% Entry header (Education, Experience company, Projects): wraps left title, right-aligns date/location
+\newcommand{\cventry}[2]{%
+  \vspace{0.4em}\noindent
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    {\large\bfseries\scshape #1} & {\normalfont\color{accent}\mbox{#2}}
+  \end{tabularx}%
+  \par\vspace{0.1em}
+}
+
+% Sub-entry header (Roles within a company): wraps role title, right-aligns role dates
+\newcommand{\cvsubentry}[2]{%
+  \vspace{0.3em}\noindent
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X r@{}}
+    {\bfseries #1} & {\normalfont\color{accent}\mbox{#2}}
+  \end{tabularx}%
+  \par\vspace{0.1em}
+}
+{% endraw %}
 
 \newcommand{\rside}[1]{
   \hfill {\normalfont\color{accent}\mbox{ #1 }}
@@ -108,9 +127,7 @@
 {% if education and education | length > 0 %}
 \section{Education}
 {% for edu in education %}
-\subsection{ {{- edu.institution | latex_escape -}}
-{% if edu.degree %} \aux{ {{- edu.degree | latex_escape -}} }{% endif %}
-{% if edu.dates %} \rside{ {{- edu.dates | latex_escape -}} }{% endif %}}
+\cventry{ {{- edu.institution | latex_escape -}}{% if edu.degree %} \aux{ {{- edu.degree | latex_escape -}} }{% endif %}}{ {{- edu.dates | default(value='') | latex_escape -}} }
 {% if edu.highlights and edu.highlights | length > 0 %}
 \begin{itemize}
 {% for h in edu.highlights %}
@@ -124,11 +141,9 @@
 {% if experience and experience | length > 0 %}
 \section{Experience}
 {% for exp in experience %}
-\subsection{ {{- exp.company | latex_escape -}}
-{% if exp.location %} \rside{ {{- exp.location | latex_escape -}} }{% endif %}}
+\cventry{ {{- exp.company | latex_escape -}} }{ {{- exp.location | default(value='') | latex_escape -}} }
 {% for role in exp.roles %}
-\subsubsection{ {{- role.title | latex_escape -}}
-{% if role.dates %} \rside{ {{- role.dates | latex_escape -}} }{% endif %}}
+\cvsubentry{ {{- role.title | latex_escape -}} }{ {{- role.dates | default(value='') | latex_escape -}} }
 {% if role.highlights and role.highlights | length > 0 %}
 \begin{itemize}
 {% for h in role.highlights %}
@@ -143,9 +158,7 @@
 {% if projects and projects | length > 0 %}
 \section{Projects}
 {% for proj in projects %}
-\subsection{ {{- proj.name | latex_escape -}}
-{% if proj.url %} \aux{\href{ {{- proj.url -}} }{Link \linkicon}}{% endif %}
-{% if proj.dates %} \rside{ {{- proj.dates | latex_escape -}} }{% endif %}}
+\cventry{ {{- proj.name | latex_escape -}}{% if proj.url %} \aux{\href{ {{- proj.url -}} }{Link \linkicon}}{% endif %}}{ {{- proj.dates | default(value='') | latex_escape -}} }
 {% if proj.highlights and proj.highlights | length > 0 %}
 \begin{itemize}
 {% for h in proj.highlights %}
