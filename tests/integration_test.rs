@@ -39,3 +39,21 @@ async fn test_compile_with_special_latex_chars() {
         .expect("Compilation failed with escaped chars");
     assert_eq!(&res.pdf_bytes[0..5], b"%PDF-");
 }
+
+#[tokio::test]
+async fn test_compile_long_location_atomic_mbox() {
+    let compiler = LatexCompiler::new().expect("LuaLaTeX not installed on host");
+    let mut profile = sample_cv_profile();
+
+    profile.contact.location =
+        Some("Nha Trang, Vietnam (Relocating to Ho Chi Minh City)".to_string());
+
+    let rendered_tex = render_latex(&profile).expect("Failed to render LaTeX");
+    assert!(rendered_tex.contains(r"\mbox{{ \color{gray}\faMapMarker* }~Nha Trang, Vietnam (Relocating to Ho Chi Minh City)}"));
+
+    let res = compiler
+        .compile(&rendered_tex)
+        .await
+        .expect("Compilation failed for long atomic location");
+    assert_eq!(&res.pdf_bytes[0..5], b"%PDF-");
+}

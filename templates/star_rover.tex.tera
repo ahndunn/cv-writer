@@ -49,7 +49,7 @@
 }
 
 \newcommand{\rside}[1]{
-  \hfill {\normalfont\color{accent} #1}
+  \hfill {\normalfont\color{accent}\mbox{ #1 }}
 }
 
 %====== FOOTER ======
@@ -81,22 +81,22 @@
   } \\ \medskip
 
   {% if contact.phone -%}
-    \href{tel:{{ contact.phone }}}{ { \color{gray}{\faPhone} } {{ contact.phone | latex_escape }}} \quad
+    \mbox{\href{tel:{{ contact.phone }}}{ { \color{gray}\faPhone }~{{ contact.phone | latex_escape }} }}\quad
   {% endif -%}
   {% if contact.email -%}
-    \href{mailto:{{ contact.email }}}{ { \color{gray}{\faEnvelope} } {{ contact.email | latex_escape }}} \quad
+    \mbox{\href{mailto:{{ contact.email }}}{ { \color{gray}\faEnvelope }~{{ contact.email | latex_escape }} }}\quad
   {% endif -%}
   {% if contact.github -%}
-    \href{https://github.com/{{ contact.github }}}{ { \color{gray}{\faGithub} } {{ contact.github | latex_escape }}} \quad
+    \mbox{\href{https://github.com/{{ contact.github }}}{ { \color{gray}\faGithub }~{{ contact.github | latex_escape }} }}\quad
   {% endif -%}
   {% if contact.linkedin -%}
-    \href{https://linkedin.com/in/{{ contact.linkedin }}}{ { \color{gray}{\faLinkedin} } {{ contact.linkedin | latex_escape }}} \quad
+    \mbox{\href{https://linkedin.com/in/{{ contact.linkedin }}}{ { \color{gray}\faLinkedin }~{{ contact.linkedin | latex_escape }} }}\quad
   {% endif -%}
   {% if contact.website -%}
-    \href{ {{ contact.website }} }{ { \color{gray}{\faLink} } {{ contact.website | latex_escape }}}
+    \mbox{\href{ {{ contact.website }} }{ { \color{gray}\faLink }~{{ contact.website | latex_escape }} }}\quad
   {% endif -%}
   {% if contact.location -%}
-    \quad { \color{gray}{\faMapMarker*} } {{ contact.location | latex_escape }}
+    \mbox{{ '{' }}{ \color{gray}\faMapMarker* }~{{ contact.location | latex_escape }}}
   {% endif -%}
 \end{center}
 
