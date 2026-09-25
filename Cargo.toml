@@ -1,0 +1,22 @@
+[package]
+name = "cv-writer-mcp"
+version = "0.1.0"
+edition = "2024"
+authors = ["CV Writer Team"]
+description = "Stateless MCP server for synthesizing and compiling CVs into PDF using LuaLaTeX"
+
+[dependencies]
+tokio = { version = "1.43", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+schemars = "0.8"
+tera = "1.20"
+tempfile = "3.17"
+base64 = "0.22"
+thiserror = "2.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+which = "7.0"
+
+[dev-dependencies]
+tokio-test = "0.4"

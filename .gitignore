@@ -1,0 +1,6 @@
+target/
+*.pdf
+*.log
+*.aux
+*.out
+.DS_Store
