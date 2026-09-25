@@ -31,6 +31,7 @@ This skill defines the operational workflow, role checklists, and review gates f
      - `render_cv`: Accepts structured profile data, validates, compiles via LuaLaTeX, returns base64 PDF and compilation diagnostics.
      - `get_sample_profile`: Returns example valid input data matching Star Rover layout.
    - Production Dockerfile with TeXLive LuaLaTeX + Rust binary.
+   - **Quality Gate**: Execute `cargo clippy --all-targets -- -D warnings` after every code change to guarantee zero warnings.
 
 5. **Black Box Quality Control (QC)**:
    - Test MCP tool discovery (`tools/list`).

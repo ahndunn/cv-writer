@@ -50,6 +50,7 @@ All work on this project adheres to a strict, multi-disciplinary Scrum Team mode
 - **Functionality**:
   - Oversees template migration to genuine LuaLaTeX (e.g. `fontspec`, OpenType Fira Sans & FontAwesome5).
   - Standardizes error types (`thiserror`, `anyhow`), async runtime (`tokio`), and MCP SDK usage (`rmcp` or clean typed MCP stdio JSON-RPC).
+  - Enforces continuous code hygiene and lint zero-tolerance: `cargo clippy --all-targets -- -D warnings` must pass after every single change.
 
 ### 6. Developer
 - **Role**: Implementation Specialist.
@@ -58,6 +59,7 @@ All work on this project adheres to a strict, multi-disciplinary Scrum Team mode
 - **Functionality**:
   - Implements the modernized LuaLaTeX template.
   - Implements Rust data structures (`serde`), template rendering engine, compiler orchestrator with timeout/cancellation, and MCP tool handlers (`render_cv`, `get_cv_schema`, `get_template_info`).
+  - **MANDATORY**: Always runs `cargo clippy --all-targets -- -D warnings` immediately after every implementation step and resolves all warnings before handing off to QC.
   - Writes Dockerfile and docker run scripts.
 
 ### 7. Quality Control (QC)

@@ -30,6 +30,7 @@ pub struct CompileResult {
     /// PDF binary bytes
     pub pdf_bytes: Vec<u8>,
     /// Stdout and Stderr diagnostics from lualatex
+    #[allow(dead_code)]
     pub log: String,
 }
 
@@ -47,6 +48,7 @@ impl LatexCompiler {
         })
     }
 
+    #[allow(dead_code)]
     pub fn with_timeout(mut self, timeout: Duration) -> Self {
         self.timeout_duration = timeout;
         self
