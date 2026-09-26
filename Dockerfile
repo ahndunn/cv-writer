@@ -42,7 +42,8 @@ USER cvagent
 WORKDIR /home/cvagent
 
 # Copy Rust compiled binary
-COPY --from=builder /usr/src/cv-writer/target/release/cv-writer-mcp /usr/local/bin/cv-writer-mcp
+COPY --from=builder /usr/src/cv-writer/target/release/cv-writer /usr/local/bin/cv-writer
 
-# Entrypoint runs the MCP server on stdio with single invoke
-ENTRYPOINT ["/usr/local/bin/cv-writer-mcp"]
+# Entrypoint runs the cv-writer CLI
+ENTRYPOINT ["/usr/local/bin/cv-writer"]
+CMD ["--help"]

@@ -15,7 +15,9 @@ pub enum CompilerError {
     Timeout(Duration),
     #[error("I/O error during compilation: {0}")]
     Io(#[from] std::io::Error),
-    #[error("Compilation failed with exit code {exit_code:?}.\nStdout:\n{stdout}\nStderr:\n{stderr}")]
+    #[error(
+        "Compilation failed with exit code {exit_code:?}.\nStdout:\n{stdout}\nStderr:\n{stderr}"
+    )]
     ExecutionFailed {
         exit_code: Option<i32>,
         stdout: String,
@@ -93,7 +95,11 @@ impl LatexCompiler {
         })
     }
 
-    async fn run_lualatex_pass(&self, dir: &Path, tex_filename: &str) -> Result<String, CompilerError> {
+    async fn run_lualatex_pass(
+        &self,
+        dir: &Path,
+        tex_filename: &str,
+    ) -> Result<String, CompilerError> {
         let mut cmd = Command::new(&self.binary_path);
         cmd.current_dir(dir)
             .arg("-interaction=nonstopmode")
